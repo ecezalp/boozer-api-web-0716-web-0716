@@ -10,7 +10,10 @@ module Api
       end
 
       def create
-
+        new_cocktail = Cocktail.new(cocktail_params)
+        if new_cocktail.save
+          render json: new_cocktail
+        end
       end
 
       def edit
@@ -24,6 +27,13 @@ module Api
       def destroy
 
       end
+
+      private
+
+      def cocktail_params
+        params.require(:cocktail).permit(:name, :description, :instructions)
+      end
+
     end
   end
 end
